@@ -6,7 +6,7 @@ screen = pygame.display.set_mode((700,600))
 pygame.display.set_caption('Snake') #nombre d eel window
 clock = pygame.time.Clock()
 
-background = pygame.image.load('SnakeBack.jpg') #origin is alawys top left (0,0)
+background = pygame.image.load('img/SnakeBack.jpg') #origin is alawys top left (0,0)
 
 while True:
     for event in pygame.event.get():
