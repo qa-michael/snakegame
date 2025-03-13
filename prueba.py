@@ -13,6 +13,8 @@ text_surface = test_score_font.render('Score',False,'Red')
 player_surf = pygame.image.load('img/Player_Square.webp')
 player_rect= player_surf.get_rect(midleft=(100,300)) #rect allows for specific point of movement
 
+#fruit_score_surf = pygame.image.load('img/3_hearts.png')
+#fruit_rect = fruit_score_surf.get_rect(midleft = (600,300))
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -21,8 +23,15 @@ while True:
 
     screen.blit(background,(0,0)) #blit = draw me to that location
     screen.blit(text_surface,(300,15))
+
+    player_rect.x += 1
+    if player_rect.right >= 865: player_rect.left = 100
+    
     screen.blit(player_surf,player_rect) #The axis is now the previosly defined rect
-    #draw and update every element
+    #screen.blit(fruit_score_surf,fruit_rect)
+
+    #draw and update every element 
+    
     pygame.display.update()
     clock.tick(60) #60 times per second (max framerate)
 
