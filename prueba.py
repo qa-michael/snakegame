@@ -9,22 +9,28 @@ clock = pygame.time.Clock()
 test_score_font= pygame.font.Font(None, 50)
 
 background = pygame.image.load('img/SnakeBack.jpg').convert() #origin is alawys top left (0,0)
-text_surface = test_score_font.render('Score',False,'Red')
+text_surface = test_score_font.render('Score',False,'black')
 
-player_surf = pygame.image.load('img/player.png')
-player_surf = pygame.transform.scale(player_surf,(50,50)) #adjusting player scle ro prevent premature colliding.
-player_rect= player_surf.get_rect(midleft=(100,300)) #rect allows for specific point of movement
-fruit_surf = pygame.image.load('img/red_square.png')
-fruit_surf = pygame.transform.scale(fruit_surf,(50,50))
+# player_surf = pygame.image.load('img/player.png')
+# player_surf = pygame.transform.scale(player_surf,(50,50)) #adjusting player scle ro prevent premature colliding.
+# player_rect= player_surf.get_rect(midleft=(100,300)) #rect allows for specific point of movement
+# fruit_surf = pygame.image.load('img/red_square.png')
+# fruit_surf = pygame.transform.scale(fruit_surf,(50,50))
+
+#Define player and fruit
+player = pygame.Rect(0,0,100,100)
+fruit = pygame.Rect(0,0,300,300)
+pygame.draw.rect(screen,(255,0,0),player)
+pygame.draw.rect(screen,(0,255,0),fruit)
 
 
 #fruit spawning 
 def spawn_fruit():
-    x = random.randint(100,700 - fruit_surf.get_width()) #within playable width
-    y = random.randint(100,600 - fruit_surf.get_height()) # within playable height
+    x = random.randint(100,700) #within playable width
+    y = random.randint(100,600) # within playable height
     return pygame.Rect(x,y,85, 85) #fruit rect #25 so it doesnt instantly collide
 
-fruit_rect = spawn_fruit()
+
 
 #Movement variables 
 
@@ -51,32 +57,32 @@ while True:
 
     #update movement
     if direction == "UP":
-        player_rect.y -= speed
+        player.y -= speed
     elif direction == "DOWN":
-        player_rect.y += speed
+        player.y += speed
     elif direction == "LEFT":
-        player_rect.x -= speed
+        player.x -= speed
     elif direction == "RIGHT":
-        player_rect.x += speed
+        player.x += speed
 
 
 #New fruit for score
-    if player_rect.colliderect(fruit_rect):
-        fruit_rect = spawn_fruit()
-    
-
-    screen.blit(background,(0,0)) #blit = draw me to that location
-    screen.blit(text_surface,(300,15))
+    if player.colliderect(fruit):
+        spawn_fruit()
+    #screen.blit(background,(0,0)) #blit = draw me to that location
+    #screen.blit(text_surface,(300,15))
 
 #default movement left 
     #player_rect.x += 1
-    if player_rect.right >= 865: player_rect.left = 100
-    
-    screen.blit(player_surf,player_rect) #The axis is now the previosly defined rect
+    if player.right >= 865: 
+        player.left = 100
+        pygame.draw.rect(screen, (0, 255, 0), player)
+        pygame.draw.rect(screen, (255, 0, 0), fruit)
+    #screen.blit(player) #The axis is now the previosly defined rect
     #screen.blit(fruit_score_surf,fruit_rect)
 
 #fruit screen blit
-    screen.blit(fruit_surf, fruit_rect)
+        
 
     #draw and update every element 
     
