@@ -3,7 +3,7 @@ from sys import exit #usando funcion specifica (from en vez de import)
 
 pygame.init()
 screen = pygame.display.set_mode((700,600))
-pygame.display.set_caption('Snake') #nombre d eel window
+pygame.display.set_caption('Snake') #window name
 clock = pygame.time.Clock()
 
 background = pygame.image.load('img/SnakeBack.jpg') #origin is alawys top left (0,0)
@@ -18,6 +18,4 @@ while True:
     #draw and update every element
     pygame.display.update()
     clock.tick(60) #60 times per second (max framerate)
-
-
 
