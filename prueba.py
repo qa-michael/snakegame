@@ -1,4 +1,5 @@
 import pygame
+import random
 from sys import exit #usando funcion specifica (from en vez de import)
 
 pygame.init()
@@ -11,7 +12,19 @@ background = pygame.image.load('img/SnakeBack.jpg').convert() #origin is alawys 
 text_surface = test_score_font.render('Score',False,'Red')
 
 player_surf = pygame.image.load('img/Player_Square.webp')
+player_surf = pygame.transform.scale(player_surf,(200,200)) #adjusting player scle ro prevent premature colliding.
 player_rect= player_surf.get_rect(midleft=(100,300)) #rect allows for specific point of movement
+fruit_surf = pygame.image.load('img/red_square.png')
+fruit_surf = pygame.transform.scale(fruit_surf,(50,50))
+
+
+#fruit spawning 
+def spawn_fruit():
+    x = random.randint(0,700 - fruit_surf.get_width()) #within playable width
+    y = random.randint(0,600 - fruit_surf.get_height()) # within playable height
+    return pygame.Rect(x,y,25, 25) #fruit rect #25 so it doesnt instantly collide
+
+fruit_rect = spawn_fruit()
 
 #Movement variables 
 
@@ -45,6 +58,11 @@ while True:
         player_rect.x -= speed
     elif direction == "RIGHT":
         player_rect.x += speed
+
+
+#New fruit for score
+    if player_rect.colliderect(fruit_rect):
+        fruit_rect = spawn_fruit()
     
 
     screen.blit(background,(0,0)) #blit = draw me to that location
@@ -56,6 +74,9 @@ while True:
     
     screen.blit(player_surf,player_rect) #The axis is now the previosly defined rect
     #screen.blit(fruit_score_surf,fruit_rect)
+
+#fruit screen blit
+    screen.blit(fruit_surf, fruit_rect)
 
     #draw and update every element 
     
