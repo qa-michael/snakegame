@@ -11,8 +11,8 @@ test_score_font= pygame.font.Font(None, 50)
 background = pygame.image.load('img/SnakeBack.jpg').convert() #origin is alawys top left (0,0)
 text_surface = test_score_font.render('Score',False,'Red')
 
-player_surf = pygame.image.load('img/Player_Square.webp')
-player_surf = pygame.transform.scale(player_surf,(200,200)) #adjusting player scle ro prevent premature colliding.
+player_surf = pygame.image.load('img/player.png')
+player_surf = pygame.transform.scale(player_surf,(50,50)) #adjusting player scle ro prevent premature colliding.
 player_rect= player_surf.get_rect(midleft=(100,300)) #rect allows for specific point of movement
 fruit_surf = pygame.image.load('img/red_square.png')
 fruit_surf = pygame.transform.scale(fruit_surf,(50,50))
@@ -20,9 +20,9 @@ fruit_surf = pygame.transform.scale(fruit_surf,(50,50))
 
 #fruit spawning 
 def spawn_fruit():
-    x = random.randint(0,700 - fruit_surf.get_width()) #within playable width
-    y = random.randint(0,600 - fruit_surf.get_height()) # within playable height
-    return pygame.Rect(x,y,25, 25) #fruit rect #25 so it doesnt instantly collide
+    x = random.randint(100,700 - fruit_surf.get_width()) #within playable width
+    y = random.randint(100,600 - fruit_surf.get_height()) # within playable height
+    return pygame.Rect(x,y,85, 85) #fruit rect #25 so it doesnt instantly collide
 
 fruit_rect = spawn_fruit()
 
