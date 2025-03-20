@@ -23,8 +23,8 @@ def spawn_fruit():
 
 #Movement variables 
 
-direction = "RIGHT"
-speed = 4 
+direction = ""
+speed = 4.5 
 
 while True:
     for event in pygame.event.get():
@@ -59,8 +59,10 @@ while True:
         fruit = spawn_fruit()
         score += 1 
 
-    #if player.right >= 865: 
-        #player.left = 100
+    if player.right >= 700:player.left = 100
+    if player.left <= 0: player.right = 100
+    if player.bottom <= 45: player.top = 100
+    if player.top >= 550: player.bottom = 100
     screen.fill((200,200,200)) #background gris
     pygame.draw.rect(screen, (0, 255, 0), player)
     pygame.draw.rect(screen, (255, 0, 0), fruit)
@@ -68,6 +70,7 @@ while True:
 
     score_surface = font.render(f"score: {score}", True, (0,0,0))
     screen.blit(score_surface, (300,20))
+
         
     #draw and update every element 
     
