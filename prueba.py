@@ -6,9 +6,11 @@ pygame.init()
 screen = pygame.display.set_mode((700,600))
 pygame.display.set_caption('Snake') #nombre d eel window
 clock = pygame.time.Clock()
-test_score_font= pygame.font.Font(None, 50)
 
-text_surface = test_score_font.render('Score',False,'black')
+score = 0
+font= pygame.font.Font(None, 50)
+
+#text_surface = test_score_font.render('Score',False,'black')
 
 #Define player and fruit
 player = pygame.Rect(100,300,50,50)
@@ -18,8 +20,6 @@ pygame.draw.rect(screen,(0,255,0),fruit)
 
 def spawn_fruit():
     return pygame.Rect(random.randint(50,650),random.randint(50,550),30,30)
-
-
 
 #Movement variables 
 
@@ -57,19 +57,20 @@ while True:
 #New fruit for score
     if player.colliderect(fruit):
         fruit = spawn_fruit()
+        score += 1 
 
     #if player.right >= 865: 
         #player.left = 100
     screen.fill((200,200,200)) #background gris
     pygame.draw.rect(screen, (0, 255, 0), player)
     pygame.draw.rect(screen, (255, 0, 0), fruit)
-    screen.blit(text_surface,(300,15))
+    #screen.blit(text_surface,(300,15))
+
+    score_surface = font.render(f"score: {score}", True, (0,0,0))
+    screen.blit(score_surface, (300,20))
         
     #draw and update every element 
     
     pygame.display.update()
     clock.tick(60) #60 times per second (max framerate)
     #for smooth movement 
-
-
-
