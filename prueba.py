@@ -4,13 +4,11 @@ from sys import exit #usando funcion specifica (from en vez de import)
 
 pygame.init()
 screen = pygame.display.set_mode((700,600))
-pygame.display.set_caption('Snake') #nombre d eel window
+pygame.display.set_caption('Snake') #nombre del window
 clock = pygame.time.Clock()
 
 score = 0
 font= pygame.font.Font(None, 50)
-
-#text_surface = test_score_font.render('Score',False,'black')
 
 #Define player and fruit
 player = pygame.Rect(100,300,50,50)
@@ -23,9 +21,10 @@ def spawn_fruit():
 
 #Movement variables 
 
-direction = ""
+direction = "NULL"
 speed = 4.5 
 
+#GAME LOOP
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -53,7 +52,6 @@ while True:
     elif direction == "RIGHT":
         player.x += speed
 
-
 #New fruit for score
     if player.colliderect(fruit):
         fruit = spawn_fruit()
@@ -66,12 +64,10 @@ while True:
     screen.fill((200,200,200)) #background gris
     pygame.draw.rect(screen, (0, 255, 0), player)
     pygame.draw.rect(screen, (255, 0, 0), fruit)
-    #screen.blit(text_surface,(300,15))
 
     score_surface = font.render(f"score: {score}", True, (0,0,0))
     screen.blit(score_surface, (300,20))
-
-        
+  
     #draw and update every element 
     
     pygame.display.update()
