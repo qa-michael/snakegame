@@ -11,9 +11,10 @@ score = 0
 font= pygame.font.Font(None, 50)
 
 #Define player and fruit
-player = pygame.Rect(100,300,50,50)
+#player = pygame.Rect(100,300,50,50)
+snake_body = [pygame.Rect(100,300,50,50)] #snake is now a list
 fruit = pygame.Rect(random.randint(50, 650),random.randint(50,550),30,30) #random sapwn
-pygame.draw.rect(screen,(255,0,0),player)
+#pygame.draw.rect(screen,(255,0,0),player)
 pygame.draw.rect(screen,(0,255,0),fruit)
 
 def spawn_fruit():
@@ -43,27 +44,35 @@ while True:
                 direction = "RIGHT"
 
     #update movement
+    new_head = snake_body[0].copy()
     if direction == "UP":
-        player.y -= speed
+        new_head.y -= speed
     elif direction == "DOWN":
-        player.y += speed
+        new_head.y += speed
     elif direction == "LEFT":
-        player.x -= speed
+        new_head.x -= speed
     elif direction == "RIGHT":
-        player.x += speed
+        new_head.x += speed
 
 #New fruit for score
-    if player.colliderect(fruit):
+    if new_head.colliderect(fruit):
         fruit = spawn_fruit()
         score += 1 
+    else:
+        snake_body.pop()
 
-    if player.right >= 700:player.left = 100
-    if player.left <= 0: player.right = 100
-    if player.bottom <= 45: player.top = 100
-    if player.top >= 550: player.bottom = 100
+    snake_body.insert(0, new_head) #si se come fruta se inserta new snakebody
+
+    if new_head.right >= 700: new_head.left = 100
+    if new_head.left <= 0: new_head.right = 100
+    if new_head.bottom <= 45: new_head.top = 100
+    if new_head.top >= 550: new_head.bottom = 100
     screen.fill((200,200,200)) #background gris
-    pygame.draw.rect(screen, (0, 255, 0), player)
+    #pygame.draw.rect(screen, (0, 255, 0), new_head)
     pygame.draw.rect(screen, (255, 0, 0), fruit)
+
+    for segment in snake_body:
+        pygame.draw.rect(screen,(0,255,0),segment)
 
     score_surface = font.render(f"score: {score}", True, (0,0,0))
     screen.blit(score_surface, (300,20))
